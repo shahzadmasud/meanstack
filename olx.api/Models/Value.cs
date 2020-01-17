@@ -1,6 +1,6 @@
 using System;
 
-namespace olx.api
+namespace olx.api.Models
 {
     public class Value
     {

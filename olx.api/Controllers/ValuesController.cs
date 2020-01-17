@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using olx.api.Data ;
 
 namespace olx.api.Controllers
 {
@@ -24,11 +25,14 @@ namespace olx.api.Controllers
         public IActionResult Values()
         { 
             var vals = _context.Values.ToList() ;
+            // 1. Is it avaiable in Sqlite
+            // 2. yes --> Fetch
+            // 3. No --> Fetch & update sqlite
             return Ok(vals) ;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get ( int id ) 
+        public IActionResult Get ( int id )
         {
             var value = _context.Values.FirstOrDefault(x => x.id
             == id) ;
