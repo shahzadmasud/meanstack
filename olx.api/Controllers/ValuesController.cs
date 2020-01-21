@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using olx.api.Data ;
+using Microsoft.EntityFrameworkCore ;
 
 namespace olx.api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _context ;
@@ -22,20 +23,19 @@ namespace olx.api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Values()
+        public async Task<IActionResult> Values()
         { 
-            var vals = _context.Values.ToList() ;
+            var vals = await _context.Values.ToListAsync() ;
             // 1. Is it avaiable in Sqlite
             // 2. yes --> Fetch
             // 3. No --> Fetch & update sqlite
-            return Ok(vals) ;
+            return Ok(vals);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get ( int id )
+        public async Task<IActionResult> Get ( int id )
         {
-            var value = _context.Values.FirstOrDefault(x => x.id
-            == id) ;
+            var value = await _context.Values.FirstOrDefaultAsync(x => x.id== id) ;
 	        return Ok(value);
         }
 
